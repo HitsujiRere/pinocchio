@@ -1,49 +1,14 @@
-import { FieldElem } from "./field";
-import { MathExpr } from "./math-tree";
-import { makeSignalID } from "./parse";
+import { Field, FieldElem } from "./field";
+import { Equation, MathExpr } from "./math-tree";
+import { parse } from "./parse";
 import { buildGate } from "./gate";
 import { buildR1CSRTmpl } from "./r1cs";
 import { buildQAP } from "./qap";
-import {} from "./polynomial";
 import { check } from "./check";
 
-console.log("hello world!");
+const f: Field = 37n;
 
-// for (let i = 1n; i <= 10n; i++) {
-//   const a = new FieldElem(1000000007n, i);
-//   console.log(a, a.inv());
-// }
-
-const f = 37n;
-
-// x^3 + x + 5 = 35
-const expr: MathExpr = {
-  op: "eq",
-  lhs: {
-    op: "add",
-    sid: makeSignalID(),
-    lhs: {
-      op: "mul",
-      sid: makeSignalID(),
-      lhs: {
-        op: "mul",
-        sid: makeSignalID(),
-        lhs: { op: "var", id: "x" },
-        rhs: { op: "var", id: "x" },
-      },
-      rhs: { op: "var", id: "x" },
-    },
-    rhs: {
-      op: "add",
-      sid: makeSignalID(),
-      lhs: { op: "var", id: "x" },
-      rhs: { op: "num", val: new FieldElem(f, 5n) },
-    },
-  },
-  rhs: new FieldElem(f, 35n),
-};
-
-// console.log(expr);
+const expr = parse("x^3 + x + 5 = 35", f);
 
 /*
   [
@@ -100,11 +65,11 @@ for (let x = 1; x <= r1cs.constraints.length; x++) {
 const testcases: { name: string; testcase: FieldElem[] }[] = [
   {
     name: "good-testcase",
-    testcase: [1n, 3n, 9n, 27n, 8n, 35n].map((x) => new FieldElem(f, x)),
+    testcase: [1n, 3n, 9n, 27n, 30n, 35n].map((x) => new FieldElem(f, x)),
   },
   {
     name: "bad-testcase",
-    testcase: [1n, 4n, 9n, 27n, 8n, 35n].map((x) => new FieldElem(f, x)),
+    testcase: [1n, 3n, 9n, 28n, 30n, 35n].map((x) => new FieldElem(f, x)),
   },
 ];
 
