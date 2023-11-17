@@ -47,23 +47,13 @@ const buildPolynomial = (a: FieldElem[]): Polynomial => {
   for (let i = 0; i < a.length; i++) {
     if (a[i].n == 0n) continue;
     let pol = new Polynomial(f, [a[i]]);
-    // console.log(i, a[i]);
-    // console.log("\tpol =", pol.toString());
     for (let j = 0; j < a.length; j++) {
       if (i == j) continue;
       const top = Polynomial.from(f, [BigInt(-j - 1), 1n]);
-      // console.log("\tj =", j);
       pol = pol.times(top);
-      // console.log("\t\ttop =", top.toString());
       pol = pol.div_sc(new FieldElem(f, BigInt(i - j)));
-      // console.log(
-      //   "\t\tbottom =",
-      //   Polynomial.from(f, [BigInt(i - j)]).toString(),
-      // );
-      // console.log("\t\tpol =", pol.toString());
     }
     polynomial = polynomial.plus(pol);
-    // console.log("\t", polynomial.toString());
   }
   return polynomial;
 };

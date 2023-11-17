@@ -23,7 +23,6 @@ console.log(gates);
 
 const r1cs = buildR1CSRTmpl(f, gates);
 const witness = r1cs.witness;
-console.log(r1cs);
 console.log(
   "w =",
   witness.map((w) => {
