@@ -5,11 +5,11 @@ const qap = generateQAP("x^3 + x + 5 = 35", 37n);
 const testcases: { name: string; testcase: bigint[] }[] = [
   {
     name: "good-testcase",
-    testcase: [3n, 9n, 27n, 30n, 35n],
+    testcase: [1n, 3n, 9n, 27n, 30n, 35n],
   },
   {
     name: "bad-testcase",
-    testcase: [3n, 9n, 28n, 30n, 35n],
+    testcase: [1n, 3n, 9n, 28n, 30n, 35n],
   },
 ];
 

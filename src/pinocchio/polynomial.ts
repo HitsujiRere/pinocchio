@@ -124,4 +124,8 @@ export class Polynomial {
     }
     return sum;
   }
+
+  toJSON(): string {
+    return this.toString();
+  }
 }

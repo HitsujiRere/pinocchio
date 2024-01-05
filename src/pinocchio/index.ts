@@ -1,3 +1,4 @@
+import "./utils";
 import { FieldElem } from "./field";
 import { parse } from "./parse";
 import { buildGate } from "./gate";
@@ -20,6 +21,6 @@ export const generateQAP = (expr: string, field: bigint): QAP => {
 export const verify = (qap: QAP, testcase: bigint[]): boolean => {
   return check(
     qap,
-    [1n, ...testcase].map((x) => new FieldElem(qap.a[0].f, x)),
+    testcase.map((x) => new FieldElem(qap.a[0].f, x)),
   );
 };
